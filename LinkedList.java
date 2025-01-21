@@ -217,7 +217,7 @@ public class LinkedList {
 	public void remove(int index) {
 		if (index < 0 || index >= size) { 
 			throw new IllegalArgumentException(
-					"index must be between 0 and size.");
+					"index must be between 0 and size");
 		}
 		remove(getNode(index));
 	}
@@ -232,7 +232,7 @@ public class LinkedList {
 	public void remove(MemoryBlock block) {
 		if (indexOf(block) == -1 || block == null) {
 			throw new IllegalArgumentException(
-					"index must be between 0 and size.");
+					"index must be between 0 and size");
 		}
 		remove(indexOf(block));
 	}	
