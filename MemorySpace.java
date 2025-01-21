@@ -59,7 +59,7 @@ public class MemorySpace {
 	 */
 	public int malloc(int length) {		
 		if (length <= 0) {
-			throw new IllegalArgumentException("Length must be positive.");
+			throw new IllegalArgumentException("Length must be positive");
 		}
 
 		ListIterator freeIterator = freeList.iterator();
@@ -118,7 +118,22 @@ public class MemorySpace {
 	 * In this implementation Malloc does not call defrag.
 	 */
 	public void defrag() {
-		/// TODO: Implement defrag test
-		//// Write your code here
+		if (freeList.getSize() <= 1) {
+			return;
+		}
+	
+		ListIterator freeIterator = freeList.iterator();
+		MemoryBlock currentBlock = freeIterator.next(); 
+	
+		while (freeIterator.hasNext()) {
+			MemoryBlock nextBlock = freeIterator.next(); 
+	
+			if (currentBlock.baseAddress + currentBlock.length == nextBlock.baseAddress) {
+				currentBlock.length += nextBlock.length;
+				freeIterator.remove();
+			} else {
+				currentBlock = nextBlock;
+			}
+		}
 	}
 }
