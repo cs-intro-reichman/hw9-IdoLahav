@@ -58,6 +58,10 @@ public class MemorySpace {
 	 * @return the base address of the allocated block, or -1 if unable to allocate
 	 */
 	public int malloc(int length) {		
+		if (length <= 0) {
+			throw new IllegalArgumentException("Requested length must be positive.");
+		}
+
 		ListIterator freeIterator = freeList.iterator();
 
 		while (freeIterator.hasNext()){
@@ -88,7 +92,16 @@ public class MemorySpace {
 	 *            the starting address of the block to freeList
 	 */
 	public void free(int address) {
-		//// Write your code here
+		ListIterator allocatedIterator = allocatedList.iterator();
+
+		while (allocatedIterator.hasNext()){
+			MemoryBlock current = allocatedIterator.next();
+			if (current.baseAddress == address){
+				freeList.addLast(current);
+				allocatedList.remove(current);
+				return;
+			}
+		}
 	}
 	
 	/**
