@@ -101,7 +101,7 @@ public class MemorySpace {
 				return;
 			}
 		}
-		throw new IllegalArgumentException("No block with the given address exists in the allocated list.");
+		throw new IllegalArgumentException("No block with the given address exists in the allocated list");
 	}
 	
 	/**
@@ -118,22 +118,6 @@ public class MemorySpace {
 	 * In this implementation Malloc does not call defrag.
 	 */
 	public void defrag() {
-		if (freeList.getSize() <= 1) {
-			return;
-		}
-	
-		ListIterator freeIterator = freeList.iterator();
-		MemoryBlock currentBlock = freeIterator.next(); 
-	
-		while (freeIterator.hasNext()) {
-			MemoryBlock nextBlock = freeIterator.next(); 
-	
-			if (currentBlock.baseAddress + currentBlock.length == nextBlock.baseAddress) {
-				currentBlock.length += nextBlock.length;
-				freeIterator.remove();
-			} else {
-				currentBlock = nextBlock;
-			}
-		}
+
 	}
 }
