@@ -59,7 +59,7 @@ public class MemorySpace {
 	 */
 	public int malloc(int length) {		
 		if (length <= 0) {
-			throw new IllegalArgumentException("Requested length must be positive.");
+			throw new IllegalArgumentException("Length must be positive.");
 		}
 
 		ListIterator freeIterator = freeList.iterator();
@@ -67,10 +67,9 @@ public class MemorySpace {
 		while (freeIterator.hasNext()){
 			MemoryBlock current = freeIterator.next();
 			if (current.length == length){
-				MemoryBlock block = new MemoryBlock(current.baseAddress, length);
-				allocatedList.addLast(block);
+				allocatedList.addLast(current);
 				freeList.remove(current);
-				return block.baseAddress;
+				return current.baseAddress;
 			}
 			else if (current.length > length){
 				MemoryBlock block = new MemoryBlock(current.baseAddress, length);
@@ -102,6 +101,7 @@ public class MemorySpace {
 				return;
 			}
 		}
+		throw new IllegalArgumentException("No block with the given address exists in the allocated list.");
 	}
 	
 	/**
