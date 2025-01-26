@@ -146,7 +146,7 @@ public class LinkedList {
 	 *         if index is negative or greater than or equal to size
 	 */
 	public MemoryBlock getBlock(int index) {
-		if (index < 0 || index > size || first == null) {
+		if (index < 0 || index >= size || first == null) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
 		}
@@ -257,5 +257,4 @@ public class LinkedList {
 		}
 		return str.substring(0,str.length() - 1) + ")";
 	}
-	
 }
