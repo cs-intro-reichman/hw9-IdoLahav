@@ -146,7 +146,7 @@ public class LinkedList {
 	 *         if index is negative or greater than or equal to size
 	 */
 	public MemoryBlock getBlock(int index) {
-		if (index < 0 || index >= size || first == null) {
+		if (index < 0 || index >= size) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
 		}
@@ -248,13 +248,23 @@ public class LinkedList {
 	 * A textual representation of this list, for debugging.
 	 */
 	public String toString() {
-		if (size == 0) return "()";
-		String str = "(";
-		Node current = first;
-		while (current != null) {
-			str += current.block + " ";
-			current = current.next;
+		if (size == 0) {
+			return "";
 		}
-		return str.substring(0,str.length() - 1) + ")";
+	
+		String result = "";
+		ListIterator iterator = new ListIterator(first);
+	
+		while (iterator.hasNext()) {
+			result += iterator.current.block;
+			iterator.next();			
+			if (iterator.hasNext()) {
+				result += " ";
+			}
+		}
+	
+		result += " ";
+		return result;
+
 	}
 }
